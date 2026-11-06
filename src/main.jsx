@@ -3,6 +3,15 @@ import { createRoot } from "react-dom/client";
 import { ArrowRight, Menu, ShieldCheck, HardHat, CloudRain, Users, Handshake, Mail, Globe } from "lucide-react";
 import "./styles.css";
 
+// Remove ChatGPT referral tracking from the browser address bar.
+if (typeof window !== "undefined") {
+  const currentUrl = new URL(window.location.href);
+  if (currentUrl.searchParams.has("utm_source")) {
+    currentUrl.searchParams.delete("utm_source");
+    window.history.replaceState({}, "", currentUrl.pathname + currentUrl.search + currentUrl.hash);
+  }
+}
+
 const pillars = [
   { number: "01", title: "Road Safety", text: "Safer roads, mobility and road-user practices through education, advocacy and practical interventions.", items: ["Public transport and passenger safety", "Driver, rider and pedestrian safety", "Safer routes and mobility assessments"], icon: ShieldCheck },
   { number: "02", title: "Occupational Safety", text: "Safer workplaces and stronger safety cultures for workers, employers, small businesses and communities.", items: ["Workplace hazard awareness", "Construction and transport-worker safety", "First aid and emergency preparedness"], icon: HardHat },
